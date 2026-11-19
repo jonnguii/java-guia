@@ -1,0 +1,190 @@
+@import 'tailwindcss';
+
+/*
+  Layout: uma coluna de app móvel (até 30rem) centrada, com barra de abas flutuante.
+  Cor: só preto e branco. A hierarquia vem de peso, tamanho e inversão (fundo preto em
+  um elemento por tela), nunca de matiz. Cinzas levemente frios, escolhidos à mão.
+*/
+:root {
+  --bg: #ffffff;
+  --fg: #0b0b0c;
+  --muted: #6a6a70;
+  --faint: #a3a3a8;
+  --line: #e7e7e9;
+  --surface: #f5f5f6;
+  --surface-2: #ececee;
+  --scrim: rgb(11 11 12 / 0.36);
+
+  --font-display: 'Bricolage Grotesque', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-code: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0b0b0c;
+    --fg: #f4f4f5;
+    --muted: #9a9aa1;
+    --faint: #5f5f66;
+    --line: #232326;
+    --surface: #141416;
+    --surface-2: #1d1d20;
+    --scrim: rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0b0b0c;
+  --fg: #f4f4f5;
+  --muted: #9a9aa1;
+  --faint: #5f5f66;
+  --line: #232326;
+  --surface: #141416;
+  --surface-2: #1d1d20;
+  --scrim: rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-scrim: var(--scrim);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-code);
+
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-y: none;
+  }
+
+  /* Faixa da área segura no topo, pintada com o fundo da página. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 40;
+    background: var(--bg);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 2px;
+  }
+
+  button {
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  button:disabled {
+    cursor: default;
+  }
+}
+
+@layer components {
+  .gutter {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  .label {
+    font-family: var(--font-code);
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Realce de sintaxe monocromático: peso e opacidade no lugar de cor. */
+.tok-kw {
+  font-weight: 700;
+}
+.tok-type {
+  font-weight: 500;
+}
+.tok-str {
+  color: var(--muted);
+}
+.tok-com {
+  color: var(--faint);
+  font-style: italic;
+}
+.tok-num {
+  text-decoration: underline;
+  text-decoration-color: var(--faint);
+  text-underline-offset: 3px;
+}
+.tok-ann {
+  color: var(--muted);
+  font-weight: 500;
+}
+.tok-tag {
+  font-weight: 700;
+}
+.tok-plain {
+  color: var(--fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,97 @@
+import type { Project } from './types'
+
+const t = (prefix: string, items: string[]) => items.map((text, i) => ({ id: `${prefix}-${i + 1}`, text }))
+
+export const PROJECTS: Project[] = [
+  {
+    id: 'calculadora',
+    title: 'Calculadora de terminal',
+    level: 'Iniciante',
+    pitch: 'Um programa interativo que lê operações, calcula e guarda um histórico.',
+    skills: ['Scanner', 'switch', 'Métodos', 'Exceções'],
+    tasks: t('calc', [
+      'Ler dois números e um operador com Scanner',
+      'Implementar as quatro operações com switch expression',
+      'Tratar divisão por zero e entrada inválida',
+      'Guardar as últimas 10 operações em um array',
+      'Repetir até o usuário digitar "sair"',
+      'Escrever testes JUnit para as operações',
+    ]),
+  },
+  {
+    id: 'tarefas',
+    title: 'Tarefas em arquivo',
+    level: 'Básico',
+    pitch: 'Um gerenciador de tarefas de linha de comando que salva tudo em CSV.',
+    skills: ['Records', 'List', 'java.nio.file', 'java.time'],
+    tasks: t('tar', [
+      'Modelar Tarefa como record (id, título, concluída, prazo)',
+      'Criar menu para adicionar, listar, concluir e remover',
+      'Salvar e carregar com Files.readAllLines e Files.write',
+      'Ordenar por prazo com Comparator',
+      'Listar as tarefas atrasadas usando LocalDate',
+      'Tratar a ausência do arquivo na primeira execução',
+    ]),
+  },
+  {
+    id: 'biblioteca',
+    title: 'Sistema de biblioteca',
+    level: 'Intermediário',
+    pitch: 'Regras de empréstimo, multas e relatórios modelados com POO e coleções.',
+    skills: ['Herança', 'Map', 'Streams', 'Exceções de domínio'],
+    tasks: t('bib', [
+      'Modelar Livro, Membro e Emprestimo',
+      'Indexar livros em um Map<String, Livro> por ISBN',
+      'Limitar a 3 empréstimos por membro e calcular multa por atraso',
+      'Criar EmprestimoIndisponivelException',
+      'Gerar relatórios com streams: mais emprestados e membros com multa',
+      'Cobrir as regras de negócio com testes',
+    ]),
+  },
+  {
+    id: 'encurtador',
+    title: 'API de encurtador de URL',
+    level: 'Intermediário',
+    pitch: 'Uma API REST completa com Spring Boot, banco de dados e testes de integração.',
+    skills: ['Spring Boot', 'REST', 'JPA', 'Validação', 'Docker'],
+    tasks: t('enc', [
+      'Gerar o projeto no start.spring.io com Web, Data JPA, Validation e H2',
+      'POST /links recebe uma URL e devolve um código curto',
+      'GET /{codigo} redireciona com status 302',
+      'Contar acessos por link',
+      'Validar a URL e responder 400 com mensagem clara',
+      'Testes de integração com MockMvc',
+      'Empacotar a aplicação em uma imagem Docker',
+    ]),
+  },
+  {
+    id: 'crawler',
+    title: 'Crawler concorrente',
+    level: 'Avançado',
+    pitch: 'Visita milhares de páginas em paralelo usando threads virtuais.',
+    skills: ['HttpClient', 'Virtual threads', 'ConcurrentHashMap', 'Semaphore'],
+    tasks: t('crw', [
+      'Baixar páginas com java.net.http.HttpClient',
+      'Extrair links e limitar a profundidade da busca',
+      'Processar cada URL em uma thread virtual',
+      'Evitar visitas repetidas com ConcurrentHashMap.newKeySet()',
+      'Limitar requisições simultâneas por domínio com Semaphore',
+      'Comparar o tempo total com um pool de threads de plataforma',
+    ]),
+  },
+  {
+    id: 'chat',
+    title: 'Chat com sockets',
+    level: 'Avançado',
+    pitch: 'Servidor e cliente de chat em tempo real, do protocolo ao profiling.',
+    skills: ['Sockets', 'Threads', 'Protocolos', 'JFR'],
+    tasks: t('cht', [
+      'Servidor com ServerSocket aceitando vários clientes',
+      'Cliente de terminal que envia e recebe ao mesmo tempo',
+      'Protocolo de comandos: /nick, /lista e /sair',
+      'Broadcast seguro entre threads',
+      'Encerrar conexões sem perder mensagens',
+      'Analisar o servidor sob carga com Java Flight Recorder',
+    ]),
+  },
+]
